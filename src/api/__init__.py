@@ -1,0 +1,2 @@
+"""FinRisk-AI FastAPI application."""
+

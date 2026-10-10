@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Central bank signals steady path for interest rates",
+    "source": "Synthetic financial news",
+    "expected_event": "Monetary Policy",
+    "expected_sentiment": "neutral"
+  },
+  {
+    "title": "Technology sector reports strong quarterly earnings growth",
+    "source": "Synthetic financial news",
+    "expected_event": "Corporate Earnings",
+    "expected_sentiment": "positive"
+  },
+  {
+    "title": "Global markets assess renewed geopolitical tensions",
+    "source": "Synthetic financial news",
+    "expected_event": "Geopolitical",
+    "expected_sentiment": "negative"
+  }
+]
