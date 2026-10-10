@@ -84,7 +84,9 @@ def analyze_text(text: str) -> RiskSignal:
     else:
         sentiment_pipeline, event_pipeline = pipelines
         try:
-            result = sentiment_pipeline(text[:2000])[0]
+            result = sentiment_pipeline(text[:2000])
+            if result and isinstance(result[0], list):
+                result = result[0]
             scores = {item["label"].lower(): float(item["score"]) for item in result}
             score = round(scores.get("positive", 0.0) - scores.get("negative", 0.0), 4)
             label = max(scores, key=scores.get)
