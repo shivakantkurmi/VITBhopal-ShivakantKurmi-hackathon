@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import logging
 import os
+import json
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 import requests
@@ -110,11 +112,22 @@ def analyze_text(text: str) -> RiskSignal:
 
 
 def _fallback_news() -> list[dict[str, str]]:
-    return [
-        {"title": "Central bank signals steady path for interest rates", "source": "FinRisk synthetic feed"},
-        {"title": "Technology sector reports strong quarterly earnings growth", "source": "FinRisk synthetic feed"},
-        {"title": "Global markets assess renewed geopolitical tensions", "source": "FinRisk synthetic feed"},
-    ]
+    dataset_path = Path(__file__).resolve().parents[2] / "data" / "sample_financial_news.json"
+    try:
+        with dataset_path.open(encoding="utf-8") as dataset_file:
+            records = json.load(dataset_file)
+        return [
+            {"title": str(record["title"]), "source": str(record.get("source", "FinRisk synthetic feed"))}
+            for record in records[:10]
+            if record.get("title")
+        ]
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        logger.warning("Synthetic news dataset unavailable; using built-in fallback: %s", exc)
+        return [
+            {"title": "Central bank signals steady path for interest rates", "source": "FinRisk synthetic feed"},
+            {"title": "Technology sector reports strong quarterly earnings growth", "source": "FinRisk synthetic feed"},
+            {"title": "Global markets assess renewed geopolitical tensions", "source": "FinRisk synthetic feed"},
+        ]
 
 
 def fetch_news(query: str = "financial markets") -> list[dict[str, str]]:
