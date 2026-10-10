@@ -1,7 +1,7 @@
 ## FinRisk-AI - S&P Global & Crisil Campus Hackathon
-## Candidate Name: Shivakant Kurmi
-## College Email ID: shivkant.23bcg10140@vitbhopal.ac.in
-## College / Campus: VIT Bhopal University
+### Candidate Name: Shivakant Kurmi
+### College Email ID: shivkant.23bcg10140@vitbhopal.ac.in
+### College / Campus: VIT Bhopal University
 ### Demo Video Link: [Pending]
 ### Slide Deck Link (if hosted externally): [Pending]
 1. Project Overview / Problem Statement & Approach
