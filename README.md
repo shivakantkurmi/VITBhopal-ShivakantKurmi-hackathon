@@ -6,7 +6,7 @@
 | Personal Email ID | shivakantkurmi49@gmail.com |
 | College / Campus | VIT Bhopal University |
 | Demo Video Link | Pending — unlisted YouTube walkthrough |
-**Slide Deck:** [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx)
+| Slide Deck | [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx) |
 
 ## 1. Project Overview
 
@@ -169,6 +169,29 @@ Open the dashboard at <http://localhost:5173/>.
 The dashboard polls `GET /api/news` every 30 seconds. If the backend is
 unavailable, it displays the built-in synthetic fallback signals.
 
+### Interactive dashboard walkthrough
+
+The dashboard is interactive, not only a static visualization. Use these
+controls from top to bottom:
+
+1. **Analyze an article:** edit the article text and click **Analyze article**.
+   This sends a `POST /api/analyze` request and displays the sentiment, event
+   type, impact score, and model status.
+2. **Search news:** enter a query such as `technology`, `inflation`, or
+   `geopolitical markets`, then click **Search news**. This calls
+   `GET /api/news?query=...` and refreshes the news signals and portfolio
+   weights.
+3. **Market lookup:** enter `AAPL`, `MSFT`, or `NVDA`, then click **Market
+   lookup**. This calls `GET /api/market/{ticker}` and displays the returned
+   price and percentage change.
+4. **Portfolio response:** inspect the donut chart and constituent cards. The
+   frontend adjusts raw weights from the returned sentiment signals and
+   normalizes the final allocation to `100%`.
+
+The top-right status indicator shows whether the dashboard is connected to the
+backend (`Live risk engine`) or showing synthetic fallback signals. Status
+messages below the controls confirm the result of each action.
+
 ### Optional NewsAPI configuration
 
 The backend works without an API key. To enable live NewsAPI articles, set the
@@ -213,7 +236,37 @@ When the transformer dependencies and model files are available, the response
 reports `"model_status": "transformers"`. Otherwise, the deterministic
 keyword-based fallback produces the same response shape.
 
-## 6. Results and Domain Impact
+## 6. Complete demo test sequence
+
+Follow this exact sequence after starting both services:
+
+1. Open <http://localhost:8000/api/health> and confirm `{"status":"ok"}`.
+2. Open <http://localhost:8000/docs>, expand `POST /api/analyze`, click
+   **Try it out**, paste the example JSON above, and click **Execute**.
+3. In the Swagger page, expand `GET /api/news`, click **Try it out**, keep
+   the default query, and click **Execute**. Confirm that each article includes
+   a nested `signal` object.
+4. Expand `GET /api/market/{ticker}`, enter `AAPL`, and click **Execute**.
+   Explain that the live price can change and the endpoint has a safe fallback.
+5. Open <http://localhost:5173/>.
+6. In **Analyze an article**, replace the text with:
+
+   ```text
+   Global markets fall as renewed geopolitical tensions increase investor risk
+   ```
+
+   Click **Analyze article** and point out the returned negative sentiment,
+   event type, impact score, and model status.
+7. In **Data controls**, enter `technology` and click **Search news**. Point
+   out that the news cards and portfolio allocation update.
+8. Enter `MSFT` and click **Market lookup**. Point out the returned ticker,
+   price, and percentage change.
+9. Explain that positive signals increase raw exposure, negative signals
+   decrease it, and the donut chart remains normalized to `100%`.
+10. Refresh the page once to demonstrate that the 30-second polling and
+    initial loading path still work.
+
+## 7. Results and Domain Impact
 
 ### Demonstrated results
 
@@ -231,7 +284,7 @@ information to a timely, explainable tactical allocation signal. The output
 provides a consistent reason for a simulated portfolio adjustment:
 sentiment + event type + impact score.
 
-## 7. Submission Deliverables
+## 8. Submission Deliverables
 
 | Deliverable | Location | Status |
 |---|---|---|
@@ -250,6 +303,6 @@ The demo video should show:
 5. News sentiment, event type, and impact score cards.
 6. The resulting normalized portfolio weights.
 
-## 8. License
+## 9. License
 
 This project is available under the [MIT License](LICENSE).

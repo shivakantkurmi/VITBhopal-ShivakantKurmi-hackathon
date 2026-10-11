@@ -23,6 +23,13 @@ function App() {
   const [signals, setSignals] = useState(FALLBACK_SIGNALS);
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [connected, setConnected] = useState(false);
+  const [articleText, setArticleText] = useState("Technology sector reports strong quarterly earnings growth");
+  const [analysis, setAnalysis] = useState(null);
+  const [query, setQuery] = useState("financial markets");
+  const [ticker, setTicker] = useState("AAPL");
+  const [market, setMarket] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
 
   const loadSignals = useCallback(async () => {
     try {
@@ -38,6 +45,61 @@ function App() {
       setLastUpdated(new Date());
     }
   }, []);
+
+  const analyzeArticle = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    setMessage("");
+    try {
+      const response = await fetch(`${API_URL}/api/analyze`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: articleText }),
+      });
+      if (!response.ok) throw new Error("Analysis request failed");
+      setAnalysis(await response.json());
+      setMessage("Article analyzed successfully.");
+    } catch {
+      setMessage("The risk engine is unavailable. Start the FastAPI backend and try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const searchNews = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    setMessage("");
+    try {
+      const response = await fetch(`${API_URL}/api/news?query=${encodeURIComponent(query)}`);
+      if (!response.ok) throw new Error("News request failed");
+      const articles = await response.json();
+      if (articles.length) setSignals(articles.map((article) => article.signal));
+      setConnected(true);
+      setLastUpdated(new Date());
+      setMessage(`${articles.length} news signals loaded.`);
+    } catch {
+      setMessage("News search failed. The dashboard will keep the current signals.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const lookupMarket = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    setMessage("");
+    try {
+      const response = await fetch(`${API_URL}/api/market/${encodeURIComponent(ticker.trim().toUpperCase())}`);
+      if (!response.ok) throw new Error("Market request failed");
+      setMarket(await response.json());
+      setMessage("Market data loaded.");
+    } catch {
+      setMessage("Market lookup failed. Check the ticker and backend connection.");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   useEffect(() => {
     loadSignals();
@@ -73,6 +135,26 @@ function App() {
           <Metric label="Average impact score" value={`${averageImpact.toFixed(1)} / 10`} tone="text-amber-300" />
           <Metric label="Tracked constituents" value="10 stocks" tone="text-cyan-300" />
         </section>
+
+        <section className="mb-6 grid gap-6 lg:grid-cols-2">
+          <form className="panel" onSubmit={analyzeArticle}>
+            <div className="mb-4 flex items-center justify-between">
+              <div><h2 className="font-semibold">Analyze an article</h2><p className="text-sm text-slate-500">Send custom text to POST /api/analyze</p></div>
+              <span className="rounded bg-purple-400/10 px-2 py-1 text-xs font-medium text-purple-300">INTERACTIVE</span>
+            </div>
+            <textarea className="input min-h-24 w-full resize-y" value={articleText} onChange={(event) => setArticleText(event.target.value)} minLength={8} maxLength={5000} required />
+            <button className="button mt-3" type="submit" disabled={busy}>{busy ? "Analyzing..." : "Analyze article"}</button>
+            {analysis && <div className="mt-4 rounded-lg border border-slate-700 bg-slate-950/50 p-3 text-sm"><div className="flex flex-wrap gap-2"><span className="tag">{analysis.sentiment_label} {analysis.sentiment >= 0 ? "+" : ""}{analysis.sentiment.toFixed(2)}</span><span className="tag">{analysis.event_type}</span><span className="tag impact">Impact {analysis.impact_score}/10</span></div><p className="mt-2 text-xs text-slate-500">Model status: {analysis.model_status}</p></div>}
+          </form>
+
+          <div className="panel">
+            <div className="mb-4 flex items-center justify-between"><div><h2 className="font-semibold">Data controls</h2><p className="text-sm text-slate-500">Try the other backend endpoints</p></div><span className="text-xs text-slate-500">API controls</span></div>
+            <form className="mb-3 flex gap-2" onSubmit={searchNews}><input className="input min-w-0 flex-1" value={query} onChange={(event) => setQuery(event.target.value)} aria-label="News search query" /><button className="button" type="submit" disabled={busy}>Search news</button></form>
+            <form className="flex gap-2" onSubmit={lookupMarket}><input className="input w-28 uppercase" value={ticker} onChange={(event) => setTicker(event.target.value)} aria-label="Ticker symbol" maxLength={12} /><button className="button" type="submit" disabled={busy}>Market lookup</button></form>
+            {market && <div className="mt-4 rounded-lg border border-slate-700 bg-slate-950/50 p-3 text-sm"><span className="font-semibold">{market.ticker}</span><span className="ml-4 text-cyan-300">${market.price}</span><span className={`ml-4 ${market.change_percent >= 0 ? "text-emerald-300" : "text-rose-300"}`}>{market.change_percent >= 0 ? "+" : ""}{market.change_percent}%</span></div>}
+          </div>
+        </section>
+        {message && <p className="mb-6 text-sm text-cyan-300" role="status">{message}</p>}
 
         <section className="grid gap-6 lg:grid-cols-[1.05fr_1.5fr]">
           <div className="panel flex min-h-[440px] flex-col">
