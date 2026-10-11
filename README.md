@@ -1,10 +1,11 @@
 # FinRisk-AI — S&P Global & Crisil Campus Hackathon
 
-**Candidate Name:** Shivakant Kurmi  
-**College Email ID:** shivkant.23bcg10140@vitbhopal.ac.in  
-**Personal Email ID:** shivakantkurmi49@gmail.com  
-**College / Campus:** VIT Bhopal University  
-**Demo Video Link:** Pending — unlisted YouTube walkthrough  
+| Candidate | Shivakant Kurmi |
+|---|---|
+| College Email ID | shivkant.23bcg10140@vitbhopal.ac.in |
+| Personal Email ID | shivakantkurmi49@gmail.com |
+| College / Campus | VIT Bhopal University |
+| Demo Video Link | Pending — unlisted YouTube walkthrough |
 **Slide Deck:** [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx)
 
 ## 1. Project Overview
@@ -34,9 +35,9 @@ synthetic JSON dataset feed the FastAPI service; the AI/NLP layer returns a
 `RiskSignal`; and the React frontend performs the tactical weight adjustment
 and normalization.
 
-![FinRisk-AI architecture](docs/architecture.svg)
+![FinRisk-AI architecture](docs/architecture.png)
 
-See the full diagram here: [docs/architecture.svg](docs/architecture.svg)
+See the full diagram here: [docs/architecture.png](docs/architecture.png)
 
 ### Implemented data flow
 
@@ -236,7 +237,7 @@ sentiment + event type + impact score.
 |---|---|---|
 | Source code and setup instructions | This public GitHub repository | Ready |
 | Presentation deck, 5–7 slides | [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx) | Ready |
-| Architecture flow diagram | [docs/architecture.svg](docs/architecture.svg) | Ready |
+| Architecture flow diagram | [docs/architecture.png](docs/architecture.png) | Ready |
 | Synthetic and prototype data | [`data/`](data/) | Ready |
 | Demo video walkthrough | Unlisted YouTube link | Pending recording |
 
