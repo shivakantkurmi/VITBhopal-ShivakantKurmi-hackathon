@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#07111f"/>
+  <style>
+    .zone{fill:#0f1c2e;stroke:#334155;stroke-width:2}.box{fill:#13243a;stroke:#38bdf8;stroke-width:2}.fallback{fill:#142b2b;stroke:#34d399;stroke-width:2}.title{fill:#f8fafc;font:700 30px Arial}.zoneTitle{fill:#38bdf8;font:700 22px Arial}.label{fill:#f8fafc;font:600 17px Arial}.small{fill:#cbd5e1;font:15px Arial}.arrow{stroke:#38bdf8;stroke-width:3;fill:none;marker-end:url(#head)}
+  </style>
+  <defs><marker id="head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8"/></marker></defs>
+  <text x="60" y="58" class="title">FinRisk-AI — Accurate High-Level Architecture</text>
+  <rect x="40" y="90" width="270" height="560" rx="12" class="zone"/><text x="65" y="130" class="zoneTitle">1. DATA SOURCES</text>
+  <rect x="65" y="160" width="220" height="100" rx="8" class="box"/><text x="85" y="200" class="label">NewsAPI</text><text x="85" y="230" class="small">Financial news articles</text>
+  <rect x="65" y="290" width="220" height="120" rx="8" class="box"/><text x="85" y="330" class="label">Synthetic JSON</text><text x="85" y="360" class="small">12,000 fallback records</text><text x="85" y="385" class="small">data/sample_financial_news.json</text>
+  <rect x="65" y="440" width="220" height="100" rx="8" class="box"/><text x="85" y="480" class="label">yfinance</text><text x="85" y="510" class="small">On-demand ticker history</text>
+  <rect x="350" y="90" width="300" height="560" rx="12" class="zone"/><text x="375" y="130" class="zoneTitle">2. FASTAPI BACKEND</text>
+  <rect x="375" y="160" width="250" height="90" rx="8" class="box"/><text x="395" y="198" class="label">Request Validation</text><text x="395" y="225" class="small">Pydantic models</text>
+  <rect x="375" y="280" width="250" height="170" rx="8" class="box"/><text x="395" y="315" class="label">REST Endpoints</text><text x="395" y="350" class="small">POST /api/analyze</text><text x="395" y="380" class="small">GET /api/news</text><text x="395" y="410" class="small">GET /api/market/{ticker}</text><text x="395" y="440" class="small">GET /api/health</text>
+  <rect x="375" y="480" width="250" height="90" rx="8" class="box"/><text x="395" y="518" class="label">CORS Middleware</text><text x="395" y="545" class="small">Local frontend access</text>
+  <rect x="690" y="90" width="330" height="560" rx="12" class="zone"/><text x="715" y="130" class="zoneTitle">3. AI / NLP RISK ENGINE</text>
+  <rect x="715" y="160" width="280" height="95" rx="8" class="box"/><text x="735" y="198" class="label">Input Text Preparation</text><text x="735" y="228" class="small">Length limiting and model-ready text</text>
+  <rect x="715" y="285" width="280" height="120" rx="8" class="box"/><text x="735" y="320" class="label">FinBERT Sentiment</text><text x="735" y="350" class="small">ProsusAI/finbert</text><text x="735" y="380" class="small">Score: -1.0 to +1.0</text>
+  <rect x="715" y="435" width="280" height="110" rx="8" class="box"/><text x="735" y="470" class="label">BART Event Classification</text><text x="735" y="500" class="small">facebook/bart-large-mnli</text><text x="735" y="525" class="small">Geopolitical, Earnings, etc.</text>
+  <rect x="1055" y="90" width="250" height="560" rx="12" class="zone"/><text x="1080" y="130" class="zoneTitle">4. FRONTEND MODULE</text>
+  <rect x="1080" y="160" width="200" height="105" rx="8" class="box"/><text x="1100" y="198" class="label">RiskSignal JSON</text><text x="1100" y="228" class="small">Sentiment + event</text><text x="1100" y="250" class="small">+ impact score</text>
+  <rect x="1080" y="295" width="200" height="115" rx="8" class="box"/><text x="1100" y="330" class="label">Weight Adjustment</text><text x="1100" y="360" class="small">Positive increases</text><text x="1100" y="385" class="small">Negative decreases</text>
+  <rect x="1080" y="440" width="200" height="105" rx="8" class="box"/><text x="1100" y="478" class="label">Normalize to 100%</text><text x="1100" y="510" class="small">10 S&amp;P 100 stocks</text>
+  <rect x="1340" y="90" width="220" height="560" rx="12" class="zone"/><text x="1365" y="130" class="zoneTitle">5. DASHBOARD</text>
+  <rect x="1365" y="160" width="170" height="100" rx="8" class="box"/><text x="1380" y="200" class="label">Live News</text><text x="1380" y="230" class="small">Sentiment, event,</text><text x="1380" y="250" class="small">impact cards</text>
+  <rect x="1365" y="290" width="170" height="100" rx="8" class="box"/><text x="1380" y="330" class="label">Donut Chart</text><text x="1380" y="360" class="small">Portfolio weights</text>
+  <rect x="1365" y="420" width="170" height="100" rx="8" class="box"/><text x="1380" y="460" class="label">Weight Cards</text><text x="1380" y="490" class="small">Ticker and percent</text>
+  <path d="M285 210 H375" class="arrow"/><path d="M285 350 H375" class="arrow"/><path d="M625 350 H715" class="arrow"/><path d="M995 215 H1080" class="arrow"/><path d="M1280 350 H1365" class="arrow"/>
+  <text x="300" y="195" class="small">articles</text><text x="645" y="335" class="small">validated text</text><text x="1000" y="200" class="small">RiskSignal JSON</text><text x="1285" y="335" class="small">weights</text>
+  <rect x="40" y="700" width="1520" height="145" rx="12" class="fallback"/><text x="65" y="738" class="zoneTitle" style="fill:#34d399">RELIABILITY AND FALLBACK BEHAVIOR</text><text x="65" y="780" class="small">Lazy model loading</text><text x="300" y="780" class="small">Synthetic dataset fallback</text><text x="590" y="780" class="small">yfinance safe default</text><text x="850" y="780" class="small">Request timeouts</text><text x="1080" y="780" class="small">Keyword classification</text><text x="1330" y="780" class="small">Consistent output</text>
+</svg>
