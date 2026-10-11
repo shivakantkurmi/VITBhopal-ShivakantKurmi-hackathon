@@ -1,9 +1,10 @@
 ## FinRisk-AI - S&P Global & Crisil Campus Hackathon
 ### Candidate Name: Shivakant Kurmi
 ### College Email ID: shivkant.23bcg10140@vitbhopal.ac.in
+### Personal Email ID: shivakantkurmi49@gmail.com
 ### College / Campus: VIT Bhopal University
 ### Demo Video Link: [Pending]
-### Slide Deck Link (if hosted externally): [Pending]
+### Slide Deck : see the data folder in repo 
 1. Project Overview / Problem Statement & Approach
 Financial markets react instantly to global news, making manual risk assessment inefficient. This project features a unified AI/NLP Risk Engine that ingests unstructured textual data from multiple sources and converts it into structured, machine-readable risk signals (Sentiment, Event Type, and Impact Score). To demonstrate its utility, the engine powers a Tactical Index Rebalancer (Module A), dynamically shifting the portfolio weights of a mock stock index based on real-time sentiment polarity.
 2. Architecture & Tech Stack
