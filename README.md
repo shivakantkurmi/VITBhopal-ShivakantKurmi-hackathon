@@ -5,7 +5,7 @@
 | College Email ID | shivkant.23bcg10140@vitbhopal.ac.in |
 | Personal Email ID | shivakantkurmi49@gmail.com |
 | College / Campus | VIT Bhopal University |
-| Demo Video Link | Pending — unlisted YouTube walkthrough |
+| Demo Video Link | https://youtu.be/wRyvc4Qn2u4 |
 | Slide Deck | [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx) |
 
 ## 1. Project Overview
@@ -292,7 +292,7 @@ sentiment + event type + impact score.
 | Presentation deck, 5–7 slides | [docs/FinRisk-AI-Presentation.pptx](docs/FinRisk-AI-Presentation.pptx) | Ready |
 | Architecture flow diagram | [docs/architecture.png](docs/architecture.png) | Ready |
 | Synthetic and prototype data | [`data/`](data/) | Ready |
-| Demo video walkthrough | Unlisted YouTube link | Pending recording |
+| Demo video walkthrough | [https://youtu.be/wRyvc4Qn2u4](https://youtu.be/wRyvc4Qn2u4) | Ready |
 
 The demo video should show:
 
